@@ -1,0 +1,1 @@
+writesourcex_jp_ '~Projects/new_kanren';'~Projects/new_kanren/release/kanren.ijs'
