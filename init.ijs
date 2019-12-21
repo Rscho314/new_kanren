@@ -1,2 +1,2 @@
 mzero =: <''
-empty_state =: (0;~<'')
+empty_state =: 2 1$'';0
