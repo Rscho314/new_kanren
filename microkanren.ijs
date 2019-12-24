@@ -1,27 +1,53 @@
 var =: 1&$
 varu =: 1&=@# *. 0&~:@#@$
 varequ =: ([-:])*.(varu@[*.varu@])
-walk =: 4 : 'x`((((({.y) i. (<x)) {:: (}.y)) walk y) :: x)@.(varu x)'
-walk =: 4 : '(y{::~1,~({.y) i. (<x)) :: x y'
-walk =: [`((]walk~]{::~1,~{.@] i. <@[) :: [)@.(varu@[)
-ext_s =: 2 : '((u;v);])'
-unit =: mzero;~]
+walk =: 4 : 0
+  if. (1$<'')-: {.y  NB. CAUTION: subtle shape issue
+    do. 'ERROR: attempted to walk the empty state.'
+  elseif. (varu x) *. ({:$y)>({.y)i.(<x)
+    do. y walk~ 1{::y{"1~({.y)i.(<x)
+  else. x
+  end.
+)
+ext_s =: 2 : '(u,.@;v),"1]'
+unit =: mzero,~< NB. potentially wrong dimension
 pairu =: (1&<)@#*.(32&=)@(3!:0)
-
-NB. 'unify' had to be made explicit because implicit recursion leads to infinite loop
-NB.(unify (vector 1) (vector 2) `( (,(vector 1)  (3 ,(vector 5))) (,(vector 2)(,(vector 6) 7))))
-NB.((#(5) . 7) (#(6) . 3) (#(1) (3 #(5))) (#(2) (#(6) 7)))
-
 unify =: 2 : 0
-  select. 1 i.~((u&walk -: v&walk)*.(varu@(u&walk)*.varu@(v&walk)))`(varu@(u&walk))`(varu@(v&walk))`(pairu@(u&walk)*.pairu@(v&walk))`:0 y
-    case. 0 do. y
-    case. 1 do. (u walk y) ext_s (v walk y) y
-    case. 2 do. (v walk y) ext_s (u walk y) y
-    NB. '1&{::' relies on assumption that we have only dotted pairs (not proper lists)!
-    case. 3 do. (1&{:: u walk y) unify (1&{:: v walk y) (0&{:: u walk y) unify (0&{:: v walk y) y
-    case. 4 do. y
-    case.   do. 'error'
+  a =. u walk y
+  b =. v walk y
+  c =. 'ERROR: attempted to walk the empty state.'
+  if. (b -: c) +. a -: c
+    do. c
+  elseif. (a varequ b) *. (varu a) *. varu b
+    do. y
+  elseif. varu a
+    do. a ext_s b y
+  elseif. varu b
+    do. b ext_s a y
+  elseif. (pairu a) *. pairu b
+    do. (1&{:: a) unify (1&{:: b) (0&{:: a) unify (0&{:: b) y
+  else. y
   end.
 )
 
-NB. Adverb train for 'equivalent'
+callfresh =: 1 : 0
+  (u (var 1&{::y)) ({.y),>:&.>}.y
+)
+
+equivalent =: 2 : 0
+  s =. u unify v 0&{::y
+  if. s -: 'ERROR: attempted to walk the empty state.'
+    do. 'ERROR: attempted to walk the empty state.'
+  elseif. s -: ''
+    do. mzero
+  else. unit s,.@;}.y
+  end.
+)
+
+NB.CONTINUE HERE
+empty_state (5 equivalent)callfresh
+5 equivalent (1$0) '',.@;1
+5 unify (1$0) <''
+(1$0) ext_s 5 <''
+5 walk '',.@;1
+(1$0) walk '',.@;1
