@@ -13,12 +13,6 @@ test_varu =: 3 : 0
   assert. varu 1$10
 )
 
-test_varequ =: 3 : 0
-  assert. (1$1) varequ (1$1)
-  assert. -.(1$1) varequ (1$0)
-  assert. -.1 varequ 1
-)
-
 test_walk =: 3 : 0
   NB.(walk (vector 1) `( (,(vector 1) . 4) (,(vector 2) . ,(vector 1)) )) => 4
   assert. 4&= (1$1) walk (2 2$(1$2);(1$1);(1$1);4)
@@ -50,5 +44,5 @@ test_unify =: 3 : 0
 )
 
 test_second_set_t1 =: 3 : 0
-  empty_state (5 equivalent)callfresh
+  assert. ('';~1;~(1$0),.@;5) -: callfresh equivalent 5 empty_state
 )
