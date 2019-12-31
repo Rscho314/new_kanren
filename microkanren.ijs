@@ -40,3 +40,35 @@ equivalent =: 2 : 0
   else. unit s;}.fresh y
   end.
 )
+
+mplus =: 2 : 0
+ if. (((32&= +. 2&=)@(3!:0)@(0&{::) *. 32&=@(3!:0)) :: 0)u`''
+  do. (v mplus (u ''))"_
+ elseif. ''-:u NB. possibly wrong, could be mzero
+  do. v
+ else. (0&{::u),(}.u) mplus v
+ end.
+)
+
+bind =: 2 : 0
+ if. (((32&= +. 2&=)@(3!:0)@(0&{::) *. 32&=@(3!:0)) :: 0)u`''
+  do. ((u'') bind v)"_
+ elseif. ''-:u NB. possibly wrong, could be mzero
+  do. mzero
+ else. (v 0&{::u) mplus ((}.u) bind v)
+ end.
+)
+
+NB. CONTINUE HERE, APPARENTLY mplus & bind OK (within test bounds)
+disj =: 2 : 0
+ (u y) mplus (v y)
+)
+
+conj =: 2 : 0
+ (u y) bind v
+)
+
+a_and_b =: 3 : 0
+NB. the scheme implementation passes adverbs, impossible in J
+ (callfresh equivalent 7) conj (callfresh (equivalent 5) disj (equivalent 6))
+)

@@ -43,6 +43,32 @@ test_unify =: 3 : 0
   assert. 'ERROR: attempted to walk the empty state.' -: (1$1) unify (1$2) empty_state
 )
 
+test_mplus =: 3 : 0
+  NB. nil & constant case
+  assert. 42 = '' mplus 42
+  NB. nullary function & nil
+  assert. 42 = (3 : '42') mplus '' ''
+  NB. pair & nil
+  assert. (4 2) -: (4 2) mplus ''
+)
+
+test_bind =: 3 : 0
+  NB. nil & whatever
+  assert. mzero -: '' bind 42
+  NB. nullary function & whatever
+  assert. mzero -: (3 : '''''') bind 42 ''
+  NB. list & nullary function
+  assert. mzero -: (1 2) bind (3 : '''''')
+)
+
 test_second_set_t1 =: 3 : 0
-  assert. ('';~1;~(1$0),.@;5) -: callfresh equivalent 5 empty_state
+  assert. (1;~(1$0),.@;5) -: 0&{::callfresh equivalent 5 empty_state
+)
+
+test_second_set_t2 =: 3 : 0
+  assert. (<'') -: {:callfresh equivalent 5 empty_state
+)
+
+test_second_set_t3 =: 3 : 0
+  assert. 0 -: 1
 )
