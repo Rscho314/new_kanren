@@ -45,6 +45,9 @@ mplus =: 2 : 0
  else. (0&{::u);(}.u) mplus v
  end.
 )
+disj =: 2 : 0
+ (u y) mplus (v y)
+)
 bind =: 2 : 0
  if. ((2&=@(3!:0)@((0;0)&{::) *. 32&=@(3!:0)) :: 0)u`''
   do. ((u'') bind v)"_
@@ -53,9 +56,7 @@ bind =: 2 : 0
  else. (v 0&{::u) mplus ((}.u) bind v)
  end.
 )
-disj =: 2 : 0
- (u y) mplus (v y)
-)
+
 conj =: 2 : 0
  (u y) bind v
 )

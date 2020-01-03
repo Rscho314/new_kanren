@@ -32,7 +32,11 @@ assert. 0 = (;/1 2 3 4) unify (1;(1$0);4) <''
 )
 
 test_mplus =: 3 : 0
-''
+ assert. (<'') -: (<'') mplus (<'')
+)
+
+test_disj =: 3 : 0
+ assert. (((((1$0);6);'');1);((((1$0);5);'');1);'')-: callfresh (1 : '(u equivalent 6) disj (u equivalent 5)') empty_state
 )
 
 test_bind =: 3 : 0
@@ -40,11 +44,11 @@ test_bind =: 3 : 0
 )
 
 test_second_set_t1 =: 3 : 0
-''
+ assert. ((((1$0);5);'');1) -: 0&{:: callfresh equivalent 5 empty_state
 )
 
 test_second_set_t2 =: 3 : 0
-''
+ assert. (1$<'') -: }. callfresh equivalent 5 empty_state
 )
 
 test_second_set_t3 =: 3 : 0
