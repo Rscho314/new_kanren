@@ -6,7 +6,7 @@ walk =: 4 : 0
   else. x
   end.
 )
-ext_s =: 2 : '(u;v);]'
+ext_s =: 2 : '(<u;v),]'
 unit =: mzero,~<
 pairu =: 32&=@(3!:0) *. 0&<@#
 unify =: 2 : 0
@@ -37,12 +37,12 @@ equivalent =: 2 : 0
   else. unit s;}.fresh y
   end.
 )
-mplus =: 2 : 0
+mplus =: 2 : 0 NB. only works for lists, not cons cells
  if. ((2&=@(3!:0)@((0;0)&{::) *. 32&=@(3!:0)) :: 0)u`''
   do. (v mplus (u ''))"_
- elseif. ''-:u NB. possibly wrong, could be mzero
+ elseif. ''-:u
   do. v
- else. (0&{::u);(}.u) mplus v
+ else. ({.u),(}.u) mplus v
  end.
 )
 disj =: 2 : 0
@@ -51,12 +51,11 @@ disj =: 2 : 0
 bind =: 2 : 0
  if. ((2&=@(3!:0)@((0;0)&{::) *. 32&=@(3!:0)) :: 0)u`''
   do. ((u'') bind v)"_
- elseif. ''-:u NB. possibly wrong, could be mzero
+ elseif. ''-:u NB.
   do. mzero
  else. (v 0&{::u) mplus ((}.u) bind v)
  end.
 )
-
 conj =: 2 : 0
  (u y) bind v
 )
