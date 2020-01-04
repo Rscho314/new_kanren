@@ -1,4 +1,5 @@
 load jpath '~Projects/new_kanren/release/kanren.ijs'
+load jpath '~Projects/new_kanren/test/microkanren_test_programs.ijs'
 
 
 test_var =: 3 : 0
@@ -58,17 +59,17 @@ test_second_set_t2 =: 3 : 0
 )
 
 test_second_set_t3 =: 3 : 0
- assert. (((((<(1$1);5),''),((<(1$0);7),''),'');2),'') -: 0&{::(callfresh equivalent 7) conj (callfresh (1 : '(u equivalent 5) disj (u equivalent 6)')) empty_state
+ assert. (((((<(1$1);5),''),((<(1$0);7),''),'');2),'') -: 0&{::a_and_b empty_state
 )
 
 test_second_set_t3_take =: 3 : 0
- assert. ((<(((<(1$1);5),''),((<(1$0);7),''),'');2),'') -: 1&{.(callfresh equivalent 7) conj (callfresh (1 : '(u equivalent 5) disj (u equivalent 6)')) empty_state
+ assert. ((<(((<(1$1);5),''),((<(1$0);7),''),'');2),'') -: 1&{.a_and_b empty_state
 )
 
 test_second_set_t4 =: 3 : 0
- assert. (((((<(1$1);6),''),((<(1$0);7),''),'');2),'') -: 0&{::}.(callfresh equivalent 7) conj (callfresh (1 : '(u equivalent 5) disj (u equivalent 6)')) empty_state
+ assert. (((((<(1$1);6),''),((<(1$0);7),''),'');2),'') -: 0&{::}.a_and_b empty_state
 )
 
 test_second_set_t5 =: 3 : 0
- assert. '' -: }.^:2 (callfresh equivalent 7) conj (callfresh (1 : '(u equivalent 5) disj (u equivalent 6)')) empty_state
+ assert. '' -: }.^:2 a_and_b empty_state
 )
