@@ -2,7 +2,7 @@ var =: 1&$
 varu =: 32&~:@(3!:0) *. 1&=@# *. 0&~:@#@$
 walk =: 4 : 0
   if. (varu x) *. ((<x) e.{."1 (0&{::"0) y)
-    do. y walk~;((<x)i.~{."1 (0&{::"0) y){(}."1 (0&{::"0) y)
+    do. y walk~0&{::((<x) i.~{."1 (0&{::"0) y){(}."1 (0&{::"0) y)
   else. x
   end.
 )
@@ -51,7 +51,7 @@ disj =: 2 : 0
 bind =: 2 : 0
  if. ((2&=@(3!:0)@((0;0)&{::) *. 32&=@(3!:0)) :: 0)u`''
   do. ((u'') bind v)"_
- elseif. ''-:u NB.
+ elseif. ''-:u
   do. mzero
  else. (v 0&{::u) mplus ((}.u) bind v)
  end.
@@ -59,3 +59,9 @@ bind =: 2 : 0
 conj =: 2 : 0
  (u y) bind v
 )
+
+callfresh equivalent 5 empty_state
+callfresh (1 : '(u equivalent 5) disj (u equivalent 5)') empty_state
+callfresh (1 : '(u equivalent 5) disj (u equivalent 6)') empty_state
+NB. WRONG
+callfresh (1 : '(u equivalent 5) conj (u equivalent 6)') empty_state

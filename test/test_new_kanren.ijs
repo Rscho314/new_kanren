@@ -21,6 +21,8 @@ test_walk =: 3 : 0
  assert. ''-:'' walk (<(1$3);(4 5)),(<(1$2);(1$3))
  assert. ''-:'' walk (<'')
  assert. ''-:'' walk mzero
+ assert. (1$2) -: (1$2) walk (<((1$0);5),'')
+ assert. 0&= varu (1$0) walk (<((1$0);5),'')
 )
 
 test_unify =: 3 : 0
